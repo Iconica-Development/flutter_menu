@@ -10,12 +10,14 @@ class AppMenu extends StatelessWidget {
   final BoxDecoration? boxDecoration;
   final Widget? exit;
   final Widget? logout;
+  final AlignmentGeometry? exitAlignment;
 
   const AppMenu(
       {Key? key,
       this.boxDecoration,
       this.exit,
       this.logout,
+      this.exitAlignment,
       required this.actions,
       required this.child})
       : super(key: key);
@@ -28,7 +30,7 @@ class AppMenu extends StatelessWidget {
         children: [
           if (exit != null) ...[
             Align(
-              alignment: Alignment.topRight,
+              alignment: exitAlignment ?? Alignment.topRight,
               child: exit,
             ),
           ],

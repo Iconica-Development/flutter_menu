@@ -56,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     text: 'logout',
                     onTap: (context) {},
                     icon: Icons.logout,
-                    textStyle: Theme.of(context).textTheme.headline3!,
+                    textStyle: Theme.of(context).textTheme.displaySmall!,
                   ),
                   actions: [
                     MenuAction.custom(
@@ -71,19 +71,19 @@ class _MyHomePageState extends State<MyHomePage> {
                       text: 'dashboard',
                       onTap: (context) {},
                       icon: Icons.dashboard,
-                      textStyle: Theme.of(context).textTheme.headline3!,
+                      textStyle: Theme.of(context).textTheme.displaySmall!,
                     ),
                     MenuAction.divider(),
                     MenuAction.text(
                       text: 'List',
                       onTap: (context) {},
                       icon: Icons.list,
-                      textStyle: Theme.of(context).textTheme.headline3!,
+                      textStyle: Theme.of(context).textTheme.displaySmall!,
                     ),
                     MenuAction.text(
                       text: 'settings',
                       onTap: (context) {},
-                      textStyle: Theme.of(context).textTheme.headline3!,
+                      textStyle: Theme.of(context).textTheme.displaySmall!,
                     ),
                   ],
                   child: Container(),
