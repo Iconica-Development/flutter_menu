@@ -90,8 +90,8 @@ abstract class MenuAction extends StatelessWidget {
   factory MenuAction.text({
     required String text,
     required MenuActionCallBack onTap,
-    TextStyle textStyle = const TextStyle(),
-    double leftTextOffset = 100,
+    TextStyle? textStyle,
+    double leftTextOffset = 32,
     IconData? icon,
     IconData? trailingIcon,
   }) =>
@@ -297,9 +297,9 @@ class TextMenuAction extends MenuAction {
     required this.text,
     super.key,
     this.icon,
-    this.leftTextOffset = 100,
+    this.leftTextOffset = 32,
     this.trailingIcon,
-    this.style = const TextStyle(),
+    this.style,
   });
 
   /// Text to display.
@@ -315,53 +315,52 @@ class TextMenuAction extends MenuAction {
   final IconData? trailingIcon;
 
   /// Style for the text.
-  final TextStyle style;
+  final TextStyle? style;
 
   /// Offset for the text from the left.
   final double leftTextOffset;
 
   @override
-  Widget buildAction(BuildContext context) => InkWell(
-        onTap: () => onTap.call(context),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 20),
-          child: SizedBox(
-            child: Row(
-              children: [
-                Expanded(
-                  flex: 1,
-                  child: (icon != null)
-                      ? Icon(
-                          icon,
-                          size: (style.fontSize ?? 16) * 1.5,
-                          color: style.color,
-                        )
-                      : SizedBox(
-                          width: leftTextOffset,
-                        ),
-                ),
-                Expanded(
-                  flex: 3,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        text,
-                        style: style,
-                      ),
-                      if (trailingIcon != null) ...[
-                        Icon(
-                          trailingIcon,
-                          size: style.fontSize ?? 16,
-                          color: style.color,
-                        ),
-                      ],
-                    ],
+  Widget buildAction(BuildContext context) {
+    var theme = Theme.of(context);
+    return InkWell(
+      onTap: () => onTap.call(context),
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 20, horizontal: leftTextOffset),
+        child: SizedBox(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  if (icon != null) ...[
+                    Icon(
+                      icon,
+                      size: style?.fontSize != null
+                          ? style!.fontSize! * 1.5
+                          : theme.textTheme.titleMedium!.fontSize! * 1.5,
+                    ),
+                    const SizedBox(width: 8),
+                  ],
+                  Text(
+                    text,
+                    style: style ?? theme.textTheme.titleMedium,
                   ),
+                ],
+              ),
+              if (trailingIcon != null) ...[
+                Icon(
+                  trailingIcon,
+                  size: style?.fontSize != null
+                      ? style!.fontSize! * 1.5
+                      : theme.textTheme.titleMedium!.fontSize! * 1.5,
+                  color: style?.color ?? theme.textTheme.titleMedium!.color,
                 ),
               ],
-            ),
+            ],
           ),
         ),
-      );
+      ),
+    );
+  }
 }
