@@ -1,6 +1,6 @@
 name: flutter_menu
 description: A new Flutter package project.
-version: 0.0.3
+version: 0.0.4
 homepage: https://github.com/Iconica-Development/flutter_menu
 
 environment:
@@ -20,4 +20,3 @@ dev_dependencies:
       ref: 6.0.0
 
 flutter:
-
