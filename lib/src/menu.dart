@@ -323,6 +323,10 @@ class TextMenuAction extends MenuAction {
   @override
   Widget buildAction(BuildContext context) {
     var theme = Theme.of(context);
+    var iconSize = style?.fontSize != null
+        ? style!.fontSize!
+        : theme.textTheme.titleMedium?.fontSize;
+    var iconColor = style?.color ?? theme.textTheme.titleMedium!.color;
     return InkWell(
       onTap: () => onTap.call(context),
       child: Padding(
@@ -336,9 +340,8 @@ class TextMenuAction extends MenuAction {
                   if (icon != null) ...[
                     Icon(
                       icon,
-                      size: style?.fontSize != null
-                          ? style!.fontSize! * 1.5
-                          : theme.textTheme.titleMedium!.fontSize! * 1.5,
+                      size: iconSize! * 1.5,
+                      color: iconColor,
                     ),
                     const SizedBox(width: 8),
                   ],
@@ -351,10 +354,8 @@ class TextMenuAction extends MenuAction {
               if (trailingIcon != null) ...[
                 Icon(
                   trailingIcon,
-                  size: style?.fontSize != null
-                      ? style!.fontSize! * 1.5
-                      : theme.textTheme.titleMedium!.fontSize! * 1.5,
-                  color: style?.color ?? theme.textTheme.titleMedium!.color,
+                  size: iconSize! * 1.5,
+                  color: iconColor,
                 ),
               ],
             ],
