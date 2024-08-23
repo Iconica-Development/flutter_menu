@@ -1,7 +1,9 @@
 name: flutter_menu
-description: A new Flutter package project.
+description: Flutter Menu Component
 version: 0.0.4
 homepage: https://github.com/Iconica-Development/flutter_menu
+
+publish_to: https://forgejo.internal.iconica.nl/api/packages/internal/pub
 
 environment:
   sdk: ">=2.18.2 <3.0.0"
