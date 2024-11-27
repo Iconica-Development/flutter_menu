@@ -105,7 +105,20 @@ abstract class MenuAction extends StatelessWidget {
       );
 
   /// Constructs a divider menu action.
-  factory MenuAction.divider() => const ActionDivider();
+  factory MenuAction.divider({
+    double? height,
+    double? thickness,
+    double? indent,
+    double? endIndent,
+    Color? color,
+  }) =>
+      ActionDivider(
+        height: height,
+        thickness: thickness,
+        indent: indent,
+        endIndent: endIndent,
+        color: color,
+      );
 
   /// Constructs a spacer menu action.
   factory MenuAction.spacer({
@@ -174,11 +187,28 @@ class ActionSpacer extends MenuAction {
 /// A divider menu action.
 class ActionDivider extends MenuAction {
   /// Constructs an instance of [ActionDivider].
-  const ActionDivider({super.key});
+  const ActionDivider({
+    super.key,
+    this.height,
+    this.thickness,
+    this.indent,
+    this.endIndent,
+    this.color,
+  });
+
+  final double? height;
+  final double? thickness;
+  final double? indent;
+  final double? endIndent;
+  final Color? color;
 
   @override
-  Widget buildAction(BuildContext context) => const Divider(
-        thickness: 1,
+  Widget buildAction(BuildContext context) => Divider(
+        height: height,
+        thickness: thickness,
+        indent: indent,
+        endIndent: endIndent,
+        color: color,
       );
 }
 
