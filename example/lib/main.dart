@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        textTheme: const TextTheme(
+          displaySmall: TextStyle(fontSize: 18),
+        ),
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
@@ -36,61 +39,80 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
+    final GlobalKey<ScaffoldState> key = GlobalKey();
+
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Center(
-              child: SizedBox(
-                height: size.height - (MediaQuery.of(context).padding.top * 2),
-                width: size.width * 0.85,
-                child: AppMenu(
-                  exit: IconButton(
-                    icon: const Icon(
-                      Icons.close,
-                    ),
-                    onPressed: () {},
-                  ),
-                  logout: MenuAction.text(
-                    text: 'logout',
-                    onTap: (context) {},
-                    icon: Icons.logout,
-                    textStyle: Theme.of(context).textTheme.displaySmall!,
-                  ),
-                  actions: [
-                    MenuAction.custom(
-                      builder: ((_) => const CircleAvatar(
-                            radius: 50,
-                            child: Center(
-                              child: Text('JD'),
-                            ),
-                          )),
-                    ),
-                    MenuAction.text(
-                      text: 'dashboard',
-                      onTap: (context) {},
-                      icon: Icons.dashboard,
-                      textStyle: Theme.of(context).textTheme.displaySmall!,
-                    ),
-                    MenuAction.divider(),
-                    MenuAction.text(
-                      text: 'List',
-                      onTap: (context) {},
-                      icon: Icons.list,
-                      textStyle: Theme.of(context).textTheme.displaySmall!,
-                    ),
-                    MenuAction.text(
-                      text: 'settings',
-                      onTap: (context) {},
-                      textStyle: Theme.of(context).textTheme.displaySmall!,
-                    ),
-                  ],
-                  child: Container(),
-                ),
+      key: key,
+      drawer: const MenuDrawer(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => key.currentState?.openDrawer(),
+      ),
+      body: Container(
+        color: Colors.red,
+      ),
+    );
+  }
+}
+
+class MenuDrawer extends StatelessWidget {
+  const MenuDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    var theme = Theme.of(context);
+
+    return SafeArea(
+      child: Container(
+        color: theme.colorScheme.surface,
+        width: size.width * 0.6,
+        child: Center(
+          child: AppMenu(
+            exit: IconButton(
+              icon: const Icon(
+                Icons.close,
               ),
+              onPressed: () => Scaffold.of(context).closeDrawer(),
             ),
-          ],
+            logout: MenuAction.text(
+              text: 'logout',
+              onTap: (context) {},
+              icon: Icons.logout,
+              textStyle: Theme.of(context).textTheme.displaySmall!,
+            ),
+            actions: [
+              MenuAction.custom(
+                builder: ((_) => const CircleAvatar(
+                      radius: 50,
+                      child: Center(
+                        child: Text('JD'),
+                      ),
+                    )),
+              ),
+              MenuAction.text(
+                text: 'dashboard',
+                onTap: (context) {},
+                icon: Icons.dashboard,
+                textStyle: Theme.of(context).textTheme.displaySmall!,
+              ),
+              MenuAction.divider(
+                indent: 16,
+                endIndent: 16,
+              ),
+              MenuAction.text(
+                text: 'List',
+                onTap: (context) {},
+                icon: Icons.list,
+                textStyle: Theme.of(context).textTheme.displaySmall!,
+              ),
+              MenuAction.text(
+                text: 'settings',
+                onTap: (context) {},
+                textStyle: Theme.of(context).textTheme.displaySmall!,
+              ),
+            ],
+            child: Container(),
+          ),
         ),
       ),
     );
